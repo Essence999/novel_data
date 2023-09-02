@@ -85,7 +85,7 @@ def calcularMedia(dadosExtraidos):
 driver = webdriver.Edge()
 novels = {'ISSTH': "https://readnovelfull.me/i-shall-seal-the-heavens/",
           'RI': "https://readnovelfull.me/renegade-immortal/"}
-novel_name = 'ISSTH'
+novel_name = 'RI'
 novel_link = novels[novel_name]
 
 driver.get(novel_link)
