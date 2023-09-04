@@ -4,20 +4,25 @@ from time import sleep
 import openpyxl
 
 # Reduz as funções
+
+
 def find(xpath):
     element = driver.find_element(By.XPATH, f"{xpath}")
     return element
+
 
 def click(xpath):
     element = find(xpath)
     element.click()
     return element
 
+
 def click_nextChapter(xpath, iterative, totalChapters):
     if iterative < totalChapters:
         click(xpath)
     else:
         pass
+
 
 # Processamento de Dados
 pontuacoes = [
@@ -46,15 +51,18 @@ pontuacoes = [
     "  ",
 ]
 
+
 def removerPontuacao(content):
     for pontuacao in pontuacoes:
         content = content.replace(pontuacao, "")
     return content
 
+
 def removerEspaco(content):
     content = content.replace("\n", "")
     content = content.replace(" ", "")
     return content
+
 
 def extrairDados(text):
     dadosProcessados = []
@@ -65,6 +73,7 @@ def extrairDados(text):
     dadosProcessados.append(len(removerPontuacao(removerEspaco(text))))
     return dadosProcessados
 
+
 def calcularTotal(dadosExtraidos):
     lista_somaTotal = []
     for x in range(0, len(dadosExtraidos[0])):
@@ -74,12 +83,14 @@ def calcularTotal(dadosExtraidos):
         lista_somaTotal.append(somaTotal)
     return lista_somaTotal
 
+
 def calcularMedia(dadosExtraidos):
     lista_somaTotal = calcularTotal(dadosExtraidos)
     lista_media = []
     for i in range(0, len(dadosExtraidos[0])):
         lista_media.append(lista_somaTotal[i] / len(dadosExtraidos))
     return lista_media
+
 
 # Abre o navegador no site
 driver = webdriver.Edge()
@@ -102,7 +113,8 @@ for xpath in xpaths_iniciais:
     sleep(1)
 
 # Define a quantidade de capítulos, inicia contagem de caracteres e guarda em uma lista
-totalChapters = len(driver.find_elements(By.XPATH, '//*[@id="chr-nav-top"]/div/select/option'))
+totalChapters = len(driver.find_elements(
+    By.XPATH, '//*[@id="chr-nav-top"]/div/select/option'))
 dadosExtraidos = []
 
 for i in range(1, totalChapters+1):
